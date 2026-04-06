@@ -1,0 +1,36 @@
+workflows:
+  aivideogen-test:
+    name: Run AIVideoGen Generative Test
+    # Using Mac mini M1 to leverage Apple's MPS (Metal Performance Shaders) 
+    # for faster PyTorch ML model execution.
+    instance_type: mac_mini_m1
+    max_build_duration: 120
+    
+    scripts:
+      - name: Set up Python virtual environment
+        script: |
+          python3 -m venv venv
+          source venv/bin/activate
+          # Make sure the virtual environment is used in subsequent steps
+          echo "export PATH=$PWD/venv/bin:\$PATH" >> $CM_ENV
+          
+      - name: Install system dependencies (FFmpeg)
+        script: |
+          # Codemagic macOS instances use Homebrew
+          brew install ffmpeg
+          
+      - name: Install Python dependencies
+        script: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Run Video Generation Process
+        script: |
+          # Running a fast "draft" test.
+          # The resulting video will be saved in the 'output' directory.
+          python app.py --text "A cinematic test of AIVideoGen running on Codemagic servers" --quality low --no-animation --debug
+          
+    artifacts:
+      # Expose the final video and logs to the Codemagic dashboard
+      - output/*.mp4
+      - logs/*.log
