@@ -1,0 +1,33 @@
+# AIVideoGen — Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# ── Core ML ──────────────────────────────────────────────────────────
+torch>=2.1.0               # MPS (Apple M-series), CUDA, or CPU
+torchvision>=0.16.0
+torchaudio>=2.1.0
+
+# ── Image Generation ─────────────────────────────────────────────────
+diffusers>=0.25.0          # Stable Diffusion + AnimateDiff
+transformers>=4.35.0
+accelerate>=0.25.0
+safetensors>=0.4.0
+
+# ── Image Processing ─────────────────────────────────────────────────
+Pillow>=10.0.0
+
+# ── Text-to-Speech ───────────────────────────────────────────────────
+edge-tts>=6.1.9            # Microsoft Edge TTS (free, no API key)
+
+# ── Video / Audio ────────────────────────────────────────────────────
+# FFmpeg must be installed separately:
+#   macOS:   brew install ffmpeg
+#   Ubuntu:  sudo apt install ffmpeg
+#   Windows: https://ffmpeg.org/download.html
+
+# ── Utilities ────────────────────────────────────────────────────────
+requests>=2.31.0
+tqdm>=4.66.0
+numpy>=1.24.0
+
+# ── Optional: faster image ops ───────────────────────────────────────
+# opencv-python>=4.9.0     # Uncomment for advanced frame processing
